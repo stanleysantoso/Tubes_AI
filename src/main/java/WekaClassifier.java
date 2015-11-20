@@ -72,10 +72,10 @@ public class WekaClassifier
         else {}
     }
     
-    public static String path = "C:/Program Files (x86)/Weka-3-7/data/";
+    public static String path = "data/";
     public static String FileDataset = "weather.nominal.arff";
-    public static String FileClassify = "Klasifikasi.arff";
-    public static String FileExternal = "Tucil  AI.arff";
+    public static String FileClassify = "unlabeled_weather.arff";
+    public static String FileExternal = "tubesAI.arff";
     public static String FileOutputClassify = "OutputKlasifikasi.arff";
     public static String ModelKNN = "ModelKNN.model";
     public static String ModelNB = "ModelNB.model";

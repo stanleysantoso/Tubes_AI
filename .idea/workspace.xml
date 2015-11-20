@@ -48,7 +48,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/NaiveBayes.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="76" column="0" selection-start-line="76" selection-start-column="0" selection-end-line="76" selection-end-column="0" />
+              <caret line="9" column="18" selection-start-line="9" selection-start-column="18" selection-end-line="9" selection-end-column="71" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#213#223#0" expanded="true" />
@@ -64,14 +64,37 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="WekaClassifier.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="WekaClassifier.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/WekaClassifier.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="2.876133">
-              <caret line="65" column="47" selection-start-line="65" selection-start-column="47" selection-end-line="65" selection-end-column="47" />
+            <state vertical-scroll-proportion="-2.310345">
+              <caret line="135" column="34" selection-start-line="135" selection-start-column="34" selection-end-line="135" selection-end-column="34" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="compareOutput.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/compareOutput.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-0.38670695">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="OutputKlasifikasi.arff" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/data/OutputKlasifikasi.arff">
+          <provider editor-type-id="com.intellij.database.editor.CsvTableFileEditorProvider">
+            <state />
+          </provider>
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-0.0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -83,7 +106,7 @@
           </provider>
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="-5.275862">
-              <caret line="9" column="25" selection-start-line="9" selection-start-column="23" selection-end-line="9" selection-end-column="25" />
+              <caret line="22" column="23" selection-start-line="22" selection-start-column="21" selection-end-line="22" selection-end-column="23" />
               <folding />
             </state>
           </provider>
@@ -108,21 +131,8 @@
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5862069">
-              <caret line="2" column="18" selection-start-line="2" selection-start-column="11" selection-end-line="2" selection-end-column="18" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Klasifikasi.arff" pinned="false" current-in-tab="false">
-        <entry file="file://C:/Program Files (x86)/Weka-3-7/data/Klasifikasi.arff">
-          <provider editor-type-id="com.intellij.database.editor.CsvTableFileEditorProvider">
-            <state />
-          </provider>
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-8.793103">
-              <caret line="15" column="8" selection-start-line="15" selection-start-column="8" selection-end-line="15" selection-end-column="8" />
+            <state vertical-scroll-proportion="-9.379311">
+              <caret line="19" column="14" selection-start-line="2" selection-start-column="11" selection-end-line="2" selection-end-column="18" />
               <folding />
             </state>
           </provider>
@@ -353,8 +363,10 @@
         <option value="$PROJECT_DIR$/data/car.data" />
         <option value="$PROJECT_DIR$/src/main/java/naiveBayes.java" />
         <option value="$PROJECT_DIR$/src/main/java/kNN.java" />
-        <option value="$PROJECT_DIR$/src/main/java/WekaClassifier.java" />
         <option value="$PROJECT_DIR$/src/main/java/NaiveBayes.java" />
+        <option value="$PROJECT_DIR$/data/OutputKlasifikasi.arff" />
+        <option value="$PROJECT_DIR$/src/main/java/WekaClassifier.java" />
+        <option value="$PROJECT_DIR$/src/main/java/compareOutput.java" />
       </list>
     </option>
   </component>
@@ -518,7 +530,7 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.NaiveBayes">
+  <component name="RunManager" selected="Application.compareOutput">
     <configuration default="false" name="kNN" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="MAIN_CLASS_NAME" value="kNN" />
@@ -552,6 +564,36 @@
     <configuration default="false" name="NaiveBayes" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="MAIN_CLASS_NAME" value="NaiveBayes" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="Tubes_AI" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="compareOutput" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="MAIN_CLASS_NAME" value="compareOutput" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="Tubes_AI" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="WekaClassifier" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="MAIN_CLASS_NAME" value="WekaClassifier" />
       <option name="VM_PARAMETERS" />
       <option name="PROGRAM_PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
@@ -813,16 +855,20 @@
     <configuration default="true" type="osgi.bnd.run" factoryName="Test Launcher (JUnit)">
       <method />
     </configuration>
-    <list size="3">
+    <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Application.kNN" />
       <item index="1" class="java.lang.String" itemvalue="Application.naiveBayes" />
       <item index="2" class="java.lang.String" itemvalue="Application.NaiveBayes" />
+      <item index="3" class="java.lang.String" itemvalue="Application.compareOutput" />
+      <item index="4" class="java.lang.String" itemvalue="Application.WekaClassifier" />
     </list>
     <recent_temporary>
-      <list size="3">
-        <item index="0" class="java.lang.String" itemvalue="Application.NaiveBayes" />
-        <item index="1" class="java.lang.String" itemvalue="Application.naiveBayes" />
-        <item index="2" class="java.lang.String" itemvalue="Application.kNN" />
+      <list size="5">
+        <item index="0" class="java.lang.String" itemvalue="Application.compareOutput" />
+        <item index="1" class="java.lang.String" itemvalue="Application.WekaClassifier" />
+        <item index="2" class="java.lang.String" itemvalue="Application.NaiveBayes" />
+        <item index="3" class="java.lang.String" itemvalue="Application.naiveBayes" />
+        <item index="4" class="java.lang.String" itemvalue="Application.kNN" />
       </list>
     </recent_temporary>
   </component>
@@ -839,12 +885,12 @@
       <workItem from="1447849828740" duration="13406000" />
       <workItem from="1447904107138" duration="209000" />
       <workItem from="1447924673168" duration="5395000" />
-      <workItem from="1447947167584" duration="14912000" />
+      <workItem from="1447947167584" duration="18434000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="33922000" />
+    <option name="totallyTimeSpent" value="37444000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -890,7 +936,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="47" />
+      <option name="time" value="50" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1061,17 +1107,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://C:/Program Files (x86)/Weka-3-7/data/Klasifikasi.arff">
-      <provider editor-type-id="com.intellij.database.editor.CsvTableFileEditorProvider">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.793103">
-          <caret line="15" column="8" selection-start-line="15" selection-start-column="8" selection-end-line="15" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/data/unlabeled_weather.arff">
       <provider editor-type-id="com.intellij.database.editor.CsvTableFileEditorProvider">
         <state />
@@ -1083,13 +1118,45 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/kNN.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="14" column="30" selection-start-line="14" selection-start-column="30" selection-end-line="14" selection-end-column="30" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Program Files (x86)/Weka-3-7/data/Klasifikasi.arff">
+      <provider editor-type-id="com.intellij.database.editor.CsvTableFileEditorProvider">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.24011299">
+          <caret line="11" column="14" selection-start-line="11" selection-start-column="14" selection-end-line="11" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Program Files (x86)/Weka-3-7/data/Tucil  AI.arff">
+      <provider editor-type-id="com.intellij.database.editor.CsvTableFileEditorProvider">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.720339">
+          <caret line="15" column="15" selection-start-line="15" selection-start-column="15" selection-end-line="15" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://C:/Program Files (x86)/Weka-3-7/data/weather.nominal.arff">
       <provider editor-type-id="com.intellij.database.editor.CsvTableFileEditorProvider">
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5862069">
-          <caret line="2" column="18" selection-start-line="2" selection-start-column="11" selection-end-line="2" selection-end-column="18" />
+        <state vertical-scroll-proportion="-9.379311">
+          <caret line="19" column="14" selection-start-line="2" selection-start-column="11" selection-end-line="2" selection-end-column="18" />
           <folding />
         </state>
       </provider>
@@ -1100,15 +1167,36 @@
       </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-5.275862">
-          <caret line="9" column="25" selection-start-line="9" selection-start-column="23" selection-end-line="9" selection-end-column="25" />
+          <caret line="22" column="23" selection-start-line="22" selection-start-column="21" selection-end-line="22" selection-end-column="23" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/OutputKlasifikasi.arff">
+      <provider editor-type-id="com.intellij.database.editor.CsvTableFileEditorProvider">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/WekaClassifier.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-2.310345">
+          <caret line="135" column="34" selection-start-line="135" selection-start-column="34" selection-end-line="135" selection-end-column="34" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/NaiveBayes.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="76" column="0" selection-start-line="76" selection-start-column="0" selection-end-line="76" selection-end-column="0" />
+          <caret line="9" column="18" selection-start-line="9" selection-start-column="18" selection-end-line="9" selection-end-column="71" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#213#223#0" expanded="true" />
@@ -1123,23 +1211,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/kNN.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/compareOutput.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="14" column="30" selection-start-line="14" selection-start-column="30" selection-end-line="14" selection-end-column="30" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/WekaClassifier.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="2.876133">
-          <caret line="65" column="47" selection-start-line="65" selection-start-column="47" selection-end-line="65" selection-end-column="47" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="-0.38670695">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>

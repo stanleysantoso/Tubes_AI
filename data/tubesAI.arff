@@ -12,7 +12,7 @@ sunny,hot,high,TRUE,no
 overcast,hot,high,FALSE,yes
 rainy,mild,high,FALSE,yes
 rainy,cool,normal,FALSE,yes
-rainy,cool,normal,TRUE,yes
+rainy,cool,normal,TRUE,no
 overcast,cool,normal,TRUE,yes
 sunny,mild,high,FALSE,no
 sunny,cool,normal,FALSE,yes
