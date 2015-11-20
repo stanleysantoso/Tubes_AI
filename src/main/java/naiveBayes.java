@@ -1,209 +1,221 @@
+import java.io.*;
 import java.util.*;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.BufferedInputStream;  
-import java.io.DataInputStream;  
+import java.util.concurrent.ThreadLocalRandom;
 
-class tableString{
-	private Vector<String> Tab;
-	
-	public tableString(){
-		Vector<String> Tab = new Vector<>();
-	}
-	public Vector<String> getTab(){
-		return Tab;
-	}
-	public void setTab(Vector<String> T){
-		Tab = T;
-	}
-	public int isFalse(String S){//menghasilkan 1 jika benar dan nol jika salah
-		int i = 0;
-		int j = 0;
-		while(i < Tab.size()){
-			if(Tab.elementAt(i).equals(S)){
-				if(Tab.elementAt(Tab.size()-1).equals("f")||Tab.elementAt(Tab.size()-1).equals("F")||Tab.elementAt(Tab.size()-1).equals("FALSE")||Tab.elementAt(Tab.size()-1).equals("false")){
-					j = 1;
-				}
-			}
-			i++;
-		}
-		return j;
-	}
-	public int isTrue(String S){//menghasilkan 1 jika benar dan nol jika salah
-		int i = 0;
-		int j = 0;
-		while(i < Tab.size()){
-			if(Tab.elementAt(i).equals(S)){
-				if(Tab.elementAt(Tab.size()-1).equals("T")||Tab.elementAt(Tab.size()-1).equals("t")||Tab.elementAt(Tab.size()-1).equals("true")||Tab.elementAt(Tab.size()-1).equals("TRUE")){
-					j = 1;
-				}
-			}
-			i++;
-		}
-		return j;
-	}
-	public int isFalse(){//menghasilkan 1 jika benar dan nol jika salah
-		int i = 0;
-		int j = 0;
-		
-		if(Tab.elementAt(Tab.size()-1).equals("f")||Tab.elementAt(Tab.size()-1).equals("F")||Tab.elementAt(Tab.size()-1).equals("FALSE")||Tab.elementAt(Tab.size()-1).equals("false")){
-			j = 1;
-		}
-		return j;
-	}
-	public int isTrue(){//menghasilkan 1 jika benar dan nol jika salah
-		int i = 0;
-		int j = 0;
-		
-		if(Tab.elementAt(Tab.size()-1).equals("T")||Tab.elementAt(Tab.size()-1).equals("t")||Tab.elementAt(Tab.size()-1).equals("true")||Tab.elementAt(Tab.size()-1).equals("TRUE")){
-			j = 1;
-		}
-		return j;
-	}
-	public void printTable(){
-		for(int i = 0; i < Tab.size(); i++){
-			System.out.println(Tab.elementAt(i));
-		}
-	}
-};
+/**
+ * Created by Stanley on 11/19/2015.
+ */
+public class NaiveBayes {
+    public static List<String[]> dataset = new ArrayList<String[]>();
+    public static List<String[]> instances = new ArrayList<String[]>();
+    public static Map<String,List<String>> attributes = new LinkedHashMap<String,List<String>>();
+    public static void main (String args[]){
+        dataset = getData("data/weather.nominal.arff");
+        instances = getData("data/unlabeled_weather.arff");
+        attributes = getAttributes("data/weather.nominal.arff");
+        Map<String,List<Float>> model = buildModel(dataset);
+        System.out.print("Naive Bayes Menu : \n" +
+                "1. Classify Full Training \n" +
+                "2. Classify 10-fold cross validation \n");
+        Scanner input = new Scanner(System.in);
+        int opt = new Integer(input.nextLine());
+        if (opt == 1) {
+            ClassifyFull("data/unlabeled_weather.arff");
+        }
+        else if (opt == 2) {
+            Classify10fold("data/unlabeled_weather.arff");
+        }
+        else {
+            System.out.println("Wrong input !");
+        }
+    }
 
-class naiveBayes{
-	private Vector<tableString> Tab;
-	
-	public naiveBayes(){
-		Vector<tableString> Tab = new Vector<>();
-	}
-	public Vector<tableString> getTab(){
-		return Tab;
-	}
-	public tableString getTab(int i){
-		return Tab.elementAt(i);
-	}	
-	public void setTab(Vector<tableString> T){
-		Tab = T;
-	}
-	public int cariPeluangTrue(){
-		int i = 0;
-		for(int j = 0; j < Tab.size(); j++){
-			if(Tab.elementAt(j).isTrue() == 1){
-				i++;
-			}
-		}
-		return i;
-	}
-	public int cariPeluangFalse(){
-		int i = 0;
-		for(int j = 0; j < Tab.size(); j++){
-			if(Tab.elementAt(j).isFalse() == 1){
-				i++;
-			}
-		}
-		return i;
-	}
-	public int cariPeluangSesuatuTrue(String S){
-		int i = 0;
-		for(int j = 0; j < Tab.size(); j++){
-			if(Tab.elementAt(j).isTrue(S) == 1){
-				i++;
-			}
-		}
-		return i;
-	}
-	public int cariPeluangSesuatuFalse(String S){
-		int i = 0;
-		for(int j = 0; j < Tab.size(); j++){
-			if(Tab.elementAt(j).isFalse(S) == 1){
-				i++;
-			}
-		}
-		return i;
-	}
-	public double NilaiDariPeluangTrue(Vector<String> A){
-		int temp = 0, temp1 = 0;
-		double x = 0,peltrue = 0;
-		temp = cariPeluangTrue();
-		temp1 = cariPeluangFalse();
-		x  = (double)(temp + temp1);
-		peltrue = temp/x;
-		if(temp != 0){
-		for(int i = 0; i < Tab.size()-1; i++){
-			peltrue *= (cariPeluangSesuatuTrue(A.elementAt(i))/temp);
-		}
-		}
-		return peltrue;
-	}
-	public double NilaiDariPeluangFalse(Vector<String> A){
-		int temp = 0, temp1 = 0;
-		double x = 0,pelfalse = 0;
-		temp = cariPeluangTrue();
-		temp1 = cariPeluangFalse();
-		x  = (double)(temp + temp1);
-		pelfalse = temp1/x;
-		if(temp1 != 0){
-		for(int i = 0; i < Tab.size()-1; i++){
-			pelfalse *= (cariPeluangSesuatuFalse(A.elementAt(i))/temp1);
-		}
-		}
-		return pelfalse;
-	}
-	public void CariNaiveBayes(Vector<String> S){
-		FileInputStream finput1 = null;
-		BufferedInputStream bis1 = null;
-		DataInputStream dis1 = null;
-		String s = new String();
-		String s1 = new String();
-		int retval1;
-		Vector<tableString> Tab1 = new Vector<>();
-		try {
-			finput1 = new FileInputStream ("INPUT.txt");
-			bis1 = new BufferedInputStream(finput1);
-			dis1 = new DataInputStream(bis1);
-		}catch (FileNotFoundException fnfe){
-			System.out.println("File tidak ditemukan.");
-			return;
-		}
-		try{
-			while ((retval1 = finput1.read()) != -1){
-				while (dis1.available() != 0) {
-					s1 = dis1.readLine();
-					StringTokenizer st = new StringTokenizer(s1);
-					s = (String)st.nextElement();
-					Vector<String> Contoh = new Vector<>();
-					tableString TC = new tableString();
-					while(!s.equals(".")){
-						if (!s.equals(",")){
-							Contoh.add(s);
-						}
-						s = (String)st.nextElement();
-					}
-					TC.setTab(Contoh);
-					Tab1.add(TC);
-				}
-			}
-			for(int i = 0; i < Tab1.size(); i++){
-				System.out.println("pp");
-				Tab1.elementAt(i).printTable();
-			}
-		}
-		catch (IOException ioe) {
-			System.out.println(ioe.getMessage());
-			return;
-		}
-		setTab(Tab1);
-		if(NilaiDariPeluangTrue(S) >= NilaiDariPeluangFalse(S)){
-			System.out.println("T");
-		}else{
-			System.out.println("F");
-		}
-	}
-	public static void main(String []args){
-		
-		naiveBayes kn = new naiveBayes();
-		Vector<String> Contoh2 = new Vector<>();
-		Contoh2.add("f");
-		Contoh2.add("t");
-		Contoh2.add("f");
-		kn.CariNaiveBayes(Contoh2);
-	}
+    public static List<String[]> getData(String path){
+        File file = new File(path);
+        List<String[]> data = new ArrayList<String[]>();
+        Scanner scnr = null;
+        try {
+            scnr = new Scanner(file);
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found !");
+        }
+        do{
+            String line = scnr.nextLine();
+            if(!line.contains("@") && line.length()>0) {
+                String[] elements = line.split(",");
+                data.add(elements);
+            }
+        }while(scnr.hasNext());
+
+        return data;
+    }
+
+    public static List<String[]> Classify(Map<String,List<Float>> model, List<String[]> testSet){
+        List<String[]> results = new ArrayList<String[]>();
+        List<String> keys = new ArrayList<>();
+        Object[] keySet = attributes.keySet().toArray();
+        //Memasukkan entrySet (keys) ke dalam ArrayList
+        for(Object entry : keySet){
+            keys.add(entry.toString());
+        }
+        List<String> labels = attributes.get(keys.get(keys.size()-1));
+        // Perhitungan
+        for(String[] unlabeledRow : testSet){
+            List<Float> probContainer = new ArrayList<>();
+            for(String label : labels) {
+                int labelIndex = attributes.get(keys.get(keys.size()-1)).indexOf(label);
+                float prob = 1;
+                for (int i = 0; i < unlabeledRow.length - 1; i++) {
+                    String attr = unlabeledRow[i];
+                    prob = prob * model.get(attr).get(labelIndex);
+                }
+                probContainer.add(prob*model.get(keys.get(keys.size()-1)).get(labelIndex));
+            }
+            unlabeledRow[unlabeledRow.length-1] = attributes.get(keys.get(keys.size()-1)).get(getMaxIndex(probContainer));
+            results.add(unlabeledRow);
+        }
+        return results;
+    }
+
+    // Membentuk model pembelajaran dari trainingSet
+    public static Map<String,List<Float>> buildModel(List<String[]> trainingSet){
+        Map<String,List<Float>> model = new LinkedHashMap<>();
+        List<Integer> labelCount = new ArrayList<>();
+        List<String> labels = new ArrayList<>();
+        List<String> keys = new ArrayList<>();
+        Object[] keySet = attributes.keySet().toArray();
+        //Memasukkan entrySet (keys) ke dalam ArrayList
+        for(Object entry : keySet){
+            keys.add(entry.toString());
+        }
+
+        for(String label : attributes.get(keys.get(keys.size()-1))){
+            int countLabel = 0;
+            for(String[] row : trainingSet){
+                if(row[row.length-1].equals(label)){
+                    countLabel++;
+                }
+            }
+            labels.add(label);
+            labelCount.add(countLabel);
+        }
+
+        for(String key : keys){ // every attribute type
+            if(keys.get(keys.size()-1).equals(key)){
+                List<Float> labelProb = new ArrayList<>();
+                for(int tempcount : labelCount){
+                    labelProb.add( ((float)tempcount/trainingSet.size()));
+                }
+                model.put(key,labelProb);
+            }
+            else {
+                List<String> tempAttr = attributes.get(key); // get all attribute with same type
+                for(String attr : tempAttr) {
+                    List<Float> attrCount = new ArrayList<>();
+                    for (String label : labels) {
+                        int count = 0;
+                        for (String[] row : trainingSet) {
+                            // condition row in dataset contains same key with specific label
+                            if (row[keys.indexOf(key)].equals(attr) && row[row.length - 1].equals(label)) {
+                                count++;
+                            }
+                        }
+                        attrCount.add((float) count / labelCount.get(labels.indexOf(label)));
+                    }
+                    model.put(attr, attrCount);
+                }
+            }
+        }
+
+        return model;
+    }
+
+    public static Map<String,List<String>> getAttributes(String path){
+        Map<String,List<String>> attributesContainer = new LinkedHashMap<>();
+        File file = new File(path);
+        Scanner scnr = null;
+        try {
+            scnr = new Scanner(file);
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found !");
+        }
+        do{
+            String line = scnr.nextLine();
+            if(line.contains("@attribute")) {
+                String[] tokens = line.split(" ",3);
+                String[] tempAttr = tokens[2].substring(1,tokens[2].length()-1).split("\\W\\s");
+
+                attributesContainer.put(tokens[1],new ArrayList<String>(Arrays.asList(tempAttr)));
+            }
+
+        }while(scnr.hasNext());
+        return attributesContainer;
+    }
+
+    public static int getMaxIndex(List<Float> probs){
+        float max = 0;
+        for(Float f : probs){
+            if(f>max){
+                max=f;
+            }
+        }
+        return probs.indexOf(max);
+    }
+
+    private static void writeToFile(String path, List<String[]> labeledSet){
+        File file = new File(path);
+        Scanner scnr = null;
+        Writer writer = null;
+        try {
+            scnr = new Scanner(file);
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found !");
+        }
+
+        try {
+            writer = new BufferedWriter(new OutputStreamWriter(
+                    new FileOutputStream("data/labeled_weather.arff"), "utf-8"));
+            String line = null;
+            do{
+                line = scnr.nextLine();
+                writer.write(line+"\n");
+            }while(!line.equals("@data"));
+            for(String[] row : labeledSet){
+                String output = "";
+                for(String val : row){
+                    output += val + ",";
+                }
+                output= output.substring(0,output.length()-1);
+                writer.write(output+"\n");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {writer.close();} catch (Exception ex) {ex.printStackTrace();}
+        }
+    }
+
+    private static void Classify10fold(String path){
+        int length = new Integer(dataset.size());
+        int testSize = length/10;
+        int trainingSize = 1-testSize;
+        List<String[]> trainingSet = dataset;
+        List<String[]> testSet = new ArrayList<String[]>();
+        //partitioning dataset into testset and trainingset
+        for(int i=0;i<testSize;i++){
+            //add random data from dataset into testSet
+            //Note: ThreadLocalRandom can only be used with Java 1.7 or later
+            int tempIndex = ThreadLocalRandom.current().nextInt(0, dataset.size() + 1);
+            testSet.add(trainingSet.get(tempIndex));
+            trainingSet.remove(tempIndex);
+        }
+        writeToFile(path, Classify(buildModel(trainingSet),testSet));
+    }
+
+    private static void ClassifyFull(String path){
+        writeToFile(path, Classify(buildModel(dataset),instances));
+    }
+
+
+
 }

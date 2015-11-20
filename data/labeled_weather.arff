@@ -7,4 +7,4 @@
 @attribute play {yes,no}
 
 @data
-sunny,hot,high,TRUE,no
+sunny,mild,normal,TRUE,no

@@ -12,7 +12,7 @@ public class kNN {
     public static void main (String args[]){
         dataset = getData("data/weather.nominal.arff");
         instances = getData("data/unlabeled_weather.arff");
-        System.out.print("Menu : \n" +
+        System.out.print("kNN Menu : \n" +
                 "1. Classify Full Training \n" +
                 "2. Classify 10-fold cross validation \n");
         Scanner input = new Scanner(System.in);
