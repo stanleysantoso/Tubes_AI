@@ -9,3 +9,7 @@ Langkah membandingkan hasil algoritma yang dibuat dengan algoritma dari Weka
  Laporan :
  Percobaan perbandingan yang dilakukan menggunakan algoritma yang telah dibuat dan library weka menghasilkan hasil yang sama (100 %)
  untuk full training
+ 
+ Menjalankan aplikasi:
+ 1. run MainClass.java
+ 2. executable jar masih error, sementara harus menjalankan aplikasi dari IDE
