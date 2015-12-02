@@ -8,6 +8,7 @@ public class compareOutput {
     private static kNN knearest = new kNN();
     private static NaiveBayes nb = new NaiveBayes();
     public static void main (String args[]) throws Exception {
+
         List<String[]> instances = knearest.getData("data/labeled_weather.arff");
         List<String[]> wekaResult = knearest.getData("data/OutputKlasifikasi.arff");
         int count = 0;

@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact name="Tubes_AI:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Tubes_AI_jar</output-path>
+    <root id="root">
+      <element id="archive" name="Tubes_AI.jar">
+        <element id="module-output" name="Tubes_AI" />
+      </element>
+      <element id="library" level="project" name="weka" />
+    </root>
+  </artifact>
+</component>

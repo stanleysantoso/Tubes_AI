@@ -21,6 +21,7 @@ import weka.core.converters.ConverterUtils.DataSource;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -201,6 +202,8 @@ public class WekaClassifier
         System.out.println(eval.toMatrixString());
         System.out.println(eval.toClassDetailsString());
     }
+
+
     
     public static void SaveModel(int ans1) throws Exception
     {
@@ -213,5 +216,42 @@ public class WekaClassifier
             SerializationHelper.write(path + ModelID3, id3);
         else if (ans1==4)
             SerializationHelper.write(path + ModelANN, ann);
+    }
+
+    public Evaluation getEvalWeka (int opt1, int opt2, String trainingSetPath) throws Exception {
+        BufferedReader breader;
+
+        breader = new BufferedReader(new FileReader(trainingSetPath));
+        Instances data1 = new Instances(breader);
+        Instances test = DataSource.read(trainingSetPath);
+        test.setClassIndex(test.numAttributes()-1);
+        data1.setClassIndex(data1.numAttributes()-1);
+
+        // Olah data
+        Evaluation eval = new Evaluation(data1);
+
+        if (opt1==1)    // KNN
+        {
+            knn.buildClassifier(data1);
+            if (opt2==1)   // full training
+            {
+                eval.evaluateModel(knn, test);
+            }
+            else if (opt2==2) {    // 10 fold cross validation
+                eval.crossValidateModel(knn, data1, 10, new Random(1));
+            }
+        }
+        else if (opt1==2)   // Naive Bayes
+        {
+            NB.buildClassifier(data1);
+            if (opt2==1)   // full training
+            {
+                eval.evaluateModel(NB, test);
+            }
+            else if (opt2==2) {    // 10 fold cross validation
+                eval.crossValidateModel(NB, data1, 10, new Random(1));
+            }
+        }
+        return eval;
     }
 }    

@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.io.*;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
@@ -6,31 +7,50 @@ import java.util.concurrent.ThreadLocalRandom;
  * Created by Stanley on 11/19/2015.
  */
 public class NaiveBayes {
-    public static List<String[]> dataset = new ArrayList<String[]>();
-    public static List<String[]> instances = new ArrayList<String[]>();
-    public static Map<String,List<String>> attributes = new LinkedHashMap<String,List<String>>();
-    public static void main (String args[]){
-        dataset = getData("data/weather.nominal.arff");
-        instances = getData("data/unlabeled_weather.arff");
-        attributes = getAttributes("data/weather.nominal.arff");
+    private static List<String[]> dataset = new ArrayList<String[]>();
+    private static List<String[]> instances = new ArrayList<String[]>();
+    private static Map<String,List<String>> attributes = new LinkedHashMap<String,List<String>>();
+    private String resourcePath = this.getClass().getResource("data").getPath() + "/";
+
+    public NaiveBayes(){
+
+    }
+
+    public NaiveBayes (String trainingSetPath, String testSetPath, int opt){
+        dataset = getData(trainingSetPath);
+        instances = getData(testSetPath);
+        attributes = getAttributes(trainingSetPath);
         Map<String,List<Float>> model = buildModel(dataset);
-        System.out.print("Naive Bayes Menu : \n" +
-                "1. Classify Full Training \n" +
-                "2. Classify 10-fold cross validation \n");
-        Scanner input = new Scanner(System.in);
-        int opt = new Integer(input.nextLine());
         if (opt == 1) {
-            ClassifyFull("data/unlabeled_weather.arff");
+            ClassifyFull(trainingSetPath);
         }
         else if (opt == 2) {
-            Classify10fold("data/unlabeled_weather.arff");
-        }
-        else {
-            System.out.println("Wrong input !");
+            Classify10fold(trainingSetPath);
         }
     }
 
-    public static List<String[]> getData(String path){
+//    public void main (String args[]){
+//        dataset = getData(resourcePath+"weather.nominal.arff");
+//        instances = getData(resourcePath+"unlabeled_weather.arff");
+//        attributes = getAttributes(resourcePath+"weather.nominal.arff");
+//        Map<String,List<Float>> model = buildModel(dataset);
+//        System.out.print("Naive Bayes Menu : \n" +
+//                "1. Classify Full Training \n" +
+//                "2. Classify 10-fold cross validation \n");
+//        Scanner input = new Scanner(System.in);
+//        int opt = new Integer(input.nextLine());
+//        if (opt == 1) {
+//            ClassifyFull(resourcePath+"unlabeled_weather.arff");
+//        }
+//        else if (opt == 2) {
+//            Classify10fold(resourcePath+"data/unlabeled_weather.arff");
+//        }
+//        else {
+//            System.out.println("Wrong input !");
+//        }
+//    }
+
+    public List<String[]> getData(String path){
         File file = new File(path);
         List<String[]> data = new ArrayList<String[]>();
         Scanner scnr = null;
@@ -50,7 +70,7 @@ public class NaiveBayes {
         return data;
     }
 
-    public static List<String[]> Classify(Map<String,List<Float>> model, List<String[]> testSet){
+    public List<String[]> Classify(Map<String,List<Float>> model, List<String[]> testSet){
         List<String[]> results = new ArrayList<String[]>();
         List<String> keys = new ArrayList<>();
         Object[] keySet = attributes.keySet().toArray();
@@ -66,7 +86,7 @@ public class NaiveBayes {
                 int labelIndex = attributes.get(keys.get(keys.size()-1)).indexOf(label);
                 float prob = 1;
                 for (int i = 0; i < unlabeledRow.length - 1; i++) {
-                    String attr = unlabeledRow[i];
+                    String attr = keys.get(i)+"."+unlabeledRow[i];
                     prob = prob * model.get(attr).get(labelIndex);
                 }
                 probContainer.add(prob*model.get(keys.get(keys.size()-1)).get(labelIndex));
@@ -78,7 +98,7 @@ public class NaiveBayes {
     }
 
     // Membentuk model pembelajaran dari trainingSet
-    public static Map<String,List<Float>> buildModel(List<String[]> trainingSet){
+    public Map<String,List<Float>> buildModel(List<String[]> trainingSet){
         Map<String,List<Float>> model = new LinkedHashMap<>();
         List<Integer> labelCount = new ArrayList<>();
         List<String> labels = new ArrayList<>();
@@ -122,15 +142,15 @@ public class NaiveBayes {
                         }
                         attrCount.add((float) count / labelCount.get(labels.indexOf(label)));
                     }
-                    model.put(attr, attrCount);
+                    model.put(key+"."+attr, attrCount);
                 }
             }
         }
-
+        outputModel(model);
         return model;
     }
 
-    public static Map<String,List<String>> getAttributes(String path){
+    public Map<String,List<String>> getAttributes(String path){
         Map<String,List<String>> attributesContainer = new LinkedHashMap<>();
         File file = new File(path);
         Scanner scnr = null;
@@ -152,7 +172,7 @@ public class NaiveBayes {
         return attributesContainer;
     }
 
-    public static int getMaxIndex(List<Float> probs){
+    public int getMaxIndex(List<Float> probs){
         float max = 0;
         for(Float f : probs){
             if(f>max){
@@ -162,7 +182,7 @@ public class NaiveBayes {
         return probs.indexOf(max);
     }
 
-    private static void writeToFile(String path, List<String[]> labeledSet){
+    private void writeToFile(String path, List<String[]> labeledSet){
         File file = new File(path);
         Scanner scnr = null;
         Writer writer = null;
@@ -174,7 +194,7 @@ public class NaiveBayes {
 
         try {
             writer = new BufferedWriter(new OutputStreamWriter(
-                    new FileOutputStream("data/labeled_weather.arff"), "utf-8"));
+                    new FileOutputStream(resourcePath+"labeled_result.arff"), "utf-8"));
             String line = null;
             do{
                 line = scnr.nextLine();
@@ -195,7 +215,7 @@ public class NaiveBayes {
         }
     }
 
-    private static void Classify10fold(String path){
+    private void Classify10fold(String path){
         int length = new Integer(dataset.size());
         int testSize = length/10;
         int trainingSize = 1-testSize;
@@ -212,10 +232,44 @@ public class NaiveBayes {
         writeToFile(path, Classify(buildModel(trainingSet),testSet));
     }
 
-    private static void ClassifyFull(String path){
+    private void ClassifyFull(String path){
         writeToFile(path, Classify(buildModel(dataset),instances));
     }
 
+    private void outputModel(Map<String,List<Float>> model){
+        List<String> keys = new ArrayList<>();
+        Writer writer = null;
+
+        Object[] keySet = model.keySet().toArray();
+        //Memasukkan entrySet (keys) ke dalam ArrayList
+        for(Object entry : keySet){
+            keys.add(entry.toString());
+        }
+
+        try {
+            writer = new BufferedWriter(new OutputStreamWriter(
+                    new FileOutputStream(resourcePath+"NB.model"), "utf-8"));
+            String line = null;
+            List<String> labels = attributes.get(keys.get(keys.size()-1));
+            writer.write("@attributes");
+            for(String label : labels){
+                writer.write(";"+label);
+            }
+            writer.write("\n");
+            for(String key : keys){
+                line = "";
+                line+=key;
+                for(Float val : model.get(key)){
+                    line+=";"+val;
+                }
+                writer.write(line+"\n");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {writer.close();} catch (Exception ex) {ex.printStackTrace();}
+        }
+    }
 
 
 }

@@ -6,32 +6,46 @@ import java.util.concurrent.ThreadLocalRandom;
  * Created by Stanley on 11/18/2015.
  */
 public class kNN {
-    public static List<String[]> dataset = new ArrayList<String[]>();
-    public static List<String[]> instances = new ArrayList<String[]>();
+    private static List<String[]> dataset = new ArrayList<String[]>();
+    private static List<String[]> instances = new ArrayList<String[]>();
+    private String resourcePath = this.getClass().getResource("data").getPath() + "/";
+    public kNN(){
 
-    public static void main (String args[]){
-        dataset = getData("data/weather.nominal.arff");
-        instances = getData("data/unlabeled_weather.arff");
-        System.out.print("kNN Menu : \n" +
-                "1. Classify Full Training \n" +
-                "2. Classify 10-fold cross validation \n");
-        Scanner input = new Scanner(System.in);
-        int opt = new Integer(input.nextLine());
+    }
+
+    public kNN (String trainingSetPath, String testSetPath, int opt,int k){
+        dataset = getData(trainingSetPath);
+        instances = getData(testSetPath);
         if (opt == 1) {
-            System.out.println("Insert k (integer)");
-            int k = new Integer(input.nextLine());
-            ClassifyFull(k);
+            ClassifyFull(k,testSetPath);
         }
         else if (opt == 2) {
-            System.out.println("Insert k (integer)");
-            int k = new Integer(input.nextLine());
-            Classify10fold(k);
-        }
-        else {
-            System.out.println("Wrong input !");
+            Classify10fold(k,testSetPath);
         }
     }
 
+//    public void main(String args[]){
+//        dataset = getData(resourcePath+"weather.nominal.arff");
+//        instances = getData(resourcePath+"unlabeled_weather.arff");
+//        System.out.print("kNN Menu : \n" +
+//                "1. Classify Full Training \n" +
+//                "2. Classify 10-fold cross validation \n");
+//        Scanner input = new Scanner(System.in);
+//        int opt = new Integer(input.nextLine());
+//        if (opt == 1) {
+//            System.out.println("Insert k (integer)");
+//            int k = new Integer(input.nextLine());
+//            ClassifyFull(k,resourcePath+"unlabeled_weather.arff");
+//        }
+//        else if (opt == 2) {
+//            System.out.println("Insert k (integer)");
+//            int k = new Integer(input.nextLine());
+//            Classify10fold(k,resourcePath+"unlabeled_weather.arff");
+//        }
+//        else {
+//            System.out.println("Wrong input !");
+//        }
+//    }
     public static List<String[]> getData(String path){
         File file = new File(path);
         List<String[]> data = new ArrayList<String[]>();
@@ -88,7 +102,7 @@ public class kNN {
         return results;
     }
 
-    private static void writeToFile(String path, List<String[]> labeledSet){
+    private void writeToFile(String path, List<String[]> labeledSet){
         File file = new File(path);
         Scanner scnr = null;
         Writer writer = null;
@@ -100,7 +114,7 @@ public class kNN {
 
         try {
             writer = new BufferedWriter(new OutputStreamWriter(
-                    new FileOutputStream("data/labeled_weather.arff"), "utf-8"));
+                    new FileOutputStream(resourcePath+"labeled_result.arff"), "utf-8"));
             String line = null;
             do{
                 line = scnr.nextLine();
@@ -167,7 +181,7 @@ public class kNN {
         return popular;
     }
 
-    private static void Classify10fold(int k){
+    private void Classify10fold(int k, String testSetPath){
         int length = new Integer(dataset.size());
         int testSize = length/10;
         int trainingSize = 1-testSize;
@@ -181,11 +195,11 @@ public class kNN {
             testSet.add(trainingSet.get(tempIndex));
             trainingSet.remove(tempIndex);
         }
-        writeToFile("data/unlabeled_weather.arff", Classify(k,trainingSet,testSet));
+        writeToFile(testSetPath, Classify(k,trainingSet,testSet));
     }
 
-    private static void ClassifyFull(int k){
-        writeToFile("data/unlabeled_weather.arff", Classify(k,dataset,instances));
+    private void ClassifyFull(int k, String testSetPath){
+        writeToFile(testSetPath, Classify(k,dataset,instances));
     }
 
 
